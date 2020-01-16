@@ -1,0 +1,4 @@
+<Subtract xmlns="http://tempuri.org/">
+    <intA>5</intA>
+    <intB>3</intB>
+</Subtract>

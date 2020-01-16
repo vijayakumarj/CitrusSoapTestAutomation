@@ -1,0 +1,3 @@
+<DivideIntegerResponse xmlns="http://tempuri.org">
+    <DivideIntegerResult>3</DivideIntegerResult>
+</DivideIntegerResponse>

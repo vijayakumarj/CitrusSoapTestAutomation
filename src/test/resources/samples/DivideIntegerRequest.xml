@@ -1,0 +1,6 @@
+<AddInteger xmlns="http://tempuri.org">
+    <!--Optional:-->
+    <Arg1>15</Arg1>
+    <!--Optional:-->
+    <Arg2>5</Arg2>
+</AddInteger>

@@ -1,0 +1,233 @@
+<xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:import namespace="http://tempuri.org/ByNameDataSet" schemaLocation="https://www.crcind.com:443/csp/samples/SOAP.ByNameDataSet.cls?XSD"/>
+    <xs:import namespace="http://tempuri.org/QueryByName_DataSet" schemaLocation="https://www.crcind.com:443/csp/samples/SOAP.Demo.QueryByName.DS.cls?XSD"/>
+    <xs:element name="AddInteger">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="Arg1" type="xs:long"/>
+                <xs:element minOccurs="0" name="Arg2" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AddIntegerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="AddIntegerResult" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DivideInteger">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="Arg1" type="xs:long"/>
+                <xs:element minOccurs="0" name="Arg2" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DivideIntegerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="DivideIntegerResult" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="FindPerson">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="id" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="FindPersonResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="FindPersonResult" type="s0:Person"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Employee">
+        <xs:complexContent>
+            <xs:extension base="s0:Person">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Title">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="50"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Salary">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:long">
+                                <xs:maxInclusive value="100000"/>
+                                <xs:minInclusive value="0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Notes" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Picture" type="xs:base64Binary"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Person">
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="SSN" type="xs:string"/>
+            <xs:element minOccurs="0" name="DOB" type="xs:date"/>
+            <xs:element minOccurs="0" name="Home" type="s0:Address"/>
+            <xs:element minOccurs="0" name="Office" type="s0:Address"/>
+            <xs:element minOccurs="0" name="Spouse" type="s0:Person"/>
+            <xs:element minOccurs="0" name="FavoriteColors" type="s0:ArrayOfFavoriteColorsItemString"/>
+            <xs:element minOccurs="0" name="Age" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Address">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Street">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="City">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="State">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Zip">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ArrayOfFavoriteColorsItemString">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="FavoriteColorsItem" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetByName">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="GetByNameResult" type="s0:DataSet"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="DataSet">
+        <xs:sequence>
+            <xs:element ref="xs:schema"/>
+            <xs:any/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetDataSetByName">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetDataSetByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="GetDataSetByNameResult" type="s0:ByNameDataSet"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ByNameDataSet">
+        <xs:sequence>
+            <xs:any namespace="http://tempuri.org/ByNameDataSet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetListByName">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetListByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="GetListByNameResult" type="s0:ArrayOfPersonIdentificationPersonIdentification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ArrayOfPersonIdentificationPersonIdentification">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="PersonIdentification" nillable="true" type="s0:PersonIdentification"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PersonIdentification">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="ID" type="xs:string"/>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="SSN" type="xs:string"/>
+            <xs:element minOccurs="0" name="DOB" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="LookupCity">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="zip" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LookupCityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="LookupCityResult" type="s0:Address"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Mission">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="MissionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="MissionResult" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="QueryByName">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="QueryByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="QueryByNameResult" type="s0:QueryByName_DataSet"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="QueryByName_DataSet">
+        <xs:sequence>
+            <xs:any namespace="http://tempuri.org/QueryByName_DataSet"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
