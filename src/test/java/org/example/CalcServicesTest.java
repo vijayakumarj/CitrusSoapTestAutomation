@@ -23,32 +23,33 @@ public class CalcServicesTest extends TestNGCitrusTestRunner {
     @CitrusTest
     @Test
     public void TestAdd(){
-        echo("Hello Test Framework");
+        echo("TestAdd");
         soap(soapActionBuilder -> soapActionBuilder
         .client(calcClient)
         .send()
         .soapAction("http://tempuri.org/Add")
-                        .payload(new ClassPathResource("samples/addRequest.xml")).build()
-
+        .payload(new ClassPathResource("samples/addRequest.xml"))
+        .build()
         );
-        soap(soapActionBuilder -> soapActionBuilder
-                .client(calcClient)
-                .receive()
-                .validate("AddResponse.AddResult","15")
 
-                //.payload(new ClassPathResource("samples/addResponse.xml"))
+        soap(soapActionBuilder -> soapActionBuilder
+        .client(calcClient)
+        .receive()
+       // .validate("AddResponse.AddResult","15")
+
+        .payload(new ClassPathResource("samples/addResponse.xml"))
         );
     }
     @CitrusTest
-    @Test
+    @Test(enabled = false)
     public void TestSubtract(){
-        echo("Hello Test Framework");
+        echo("TestSubtract");
         soap(soapActionBuilder -> soapActionBuilder
-                .client(calcClient)
-                .send()
-                .soapAction("http://tempuri.org/Subtract")
-                .build()
-                //.payload(new ClassPathResource("samples/subtractRequest.xml")).build()
+        .client(calcClient)
+        .send()
+        .soapAction("http://tempuri.org/Subtract")
+        //.build()
+        .payload(new ClassPathResource("samples/subtractRequest.xml")).build()
 
         );
         soap(soapActionBuilder -> soapActionBuilder
