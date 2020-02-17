@@ -1,12 +1,15 @@
 package org.example;
 
+import com.consol.citrus.db.driver.JdbcDriver;
 import com.consol.citrus.dsl.endpoint.CitrusEndpoints;
 import com.consol.citrus.ws.client.WebServiceClient;
 import com.consol.citrus.xml.XsdSchemaRepository;
 import com.consol.citrus.xml.namespace.NamespaceContextBuilder;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.ws.soap.SoapMessageFactory;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 import org.springframework.xml.xsd.SimpleXsdSchema;
@@ -42,5 +45,29 @@ public class EndPointConfigDivide {
                 .client()
                 .defaultUri("https://www.crcind.com:443/csp/samples/SOAP.Demo.cls")
                 .build();
+    }
+/*
+      @Bean
+      public SingleConnectionDataSource dataSource() {
+          SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
+          dataSource.setDriverClassName(JdbcDriver.class.getName());
+          dataSource.setUrl("jdbc:citrus:http://localhost:3306/");
+          dataSource.setUsername("root");
+          dataSource.setPassword("Vijay@88842");
+          return dataSource;
+      }
+*/
+
+    @Bean(destroyMethod = "close")
+    public BasicDataSource todoListDataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
+        dataSource.setUrl("jdbc:mariadb://localhost/bookstore");
+        dataSource.setUsername("root");
+        dataSource.setPassword("Vijay@88842");
+        dataSource.setInitialSize(1);
+        dataSource.setMaxActive(5);
+        dataSource.setMaxIdle(2);
+        return dataSource;
     }
 }
