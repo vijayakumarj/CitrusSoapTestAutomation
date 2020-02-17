@@ -64,7 +64,7 @@ public class EndPointConfigDivide {
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
         dataSource.setUrl("jdbc:mariadb://localhost/bookstore");
         dataSource.setUsername("root");
-        dataSource.setPassword("Vijay@88842");
+        dataSource.setPassword("password");
         dataSource.setInitialSize(1);
         dataSource.setMaxActive(5);
         dataSource.setMaxIdle(2);
