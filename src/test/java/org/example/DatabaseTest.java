@@ -15,17 +15,17 @@ public class DatabaseTest extends TestNGCitrusTestRunner {
 
     @CitrusTest
     @Test
-    public void createTable(){
+    public void createTable() {
         async().actions(
-        sql(executeSQLBuilder -> executeSQLBuilder.
-            dataSource(todoListDataSource)
-                .statement("CREATE TABLE IF NOT EXISTS todo_entries (id VARCHAR(50), title VARCHAR(255), description VARCHAR(255), done BOOLEAN)")
-        ));
+                sql(executeSQLBuilder -> executeSQLBuilder.
+                        dataSource(todoListDataSource)
+                        .statement("CREATE TABLE IF NOT EXISTS todo_entries (id VARCHAR(50), title VARCHAR(255), description VARCHAR(255), done BOOLEAN)")
+                ));
     }
 
     @CitrusTest
     @Test
-    public void validationTest(){
+    public void validationTest() {
         variable("todoId", "uuid");
         variable("todoName", "citrus");
         variable("todoDescription", "poc work");
@@ -39,35 +39,36 @@ public class DatabaseTest extends TestNGCitrusTestRunner {
         String updateStatement = "update todo_entries set id='new id' where done =1";
         echo("initial insert statements");
         sql(executeSQLBuilder -> executeSQLBuilder
-                        .dataSource(todoListDataSource)
-                        .statements(initialInsertStatements)
-                        .build()
+                .dataSource(todoListDataSource)
+                .statements(initialInsertStatements)
+                .build()
         );
 
         echo("select statement for validation");
 
-        query(executeSQLBuilder-> executeSQLBuilder
-                        .dataSource(todoListDataSource)
-                        .statement("SELECT id, title, description FROM todo_entries where done=1")
-                        .validate("id", "${todoId}")
-                        .validate("title", "${todoName}")
-                        .validate("description", "${todoDescription}")
-                );
+        query(executeSQLBuilder -> executeSQLBuilder
+                .dataSource(todoListDataSource)
+                .statement("SELECT id, title, description FROM todo_entries where done=1")
+                .validate("id", "${todoId}")
+                .validate("title", "${todoName}")
+                .validate("description", "${todoDescription}")
+        );
 
         echo("executing update statements");
-                sql(executeSQLBuilder -> executeSQLBuilder
-                        .dataSource(todoListDataSource)
-                        .statement(updateStatement)
-                        .build()
-                );
+        sql(executeSQLBuilder -> executeSQLBuilder
+                .dataSource(todoListDataSource)
+                .statement(updateStatement)
+                .build()
+        );
 
         echo("Validating the updated row");
         query(executeSQLQueryBuilder -> executeSQLQueryBuilder
-                        .dataSource(todoListDataSource)
-                        .statement("SELECT id, title, description FROM todo_entries where done=1")
-                        .validate("id", "${updatedTodoId}")
-                        .validate("title", "${todoName}")
-                        .validate("description", "${todoDescription}")
+                .dataSource(todoListDataSource)
+                .statement("SELECT id, title, description FROM todo_entries where done=1")
+                .validate("id", "${updatedTodoId}")
+                .validate("title", "${todoName}")
+                .validate("description", "${todoDescription}")
         );
+
     }
 }

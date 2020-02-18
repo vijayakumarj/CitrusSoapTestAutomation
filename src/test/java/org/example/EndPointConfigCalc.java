@@ -16,30 +16,34 @@ import java.util.Collections;
 @Configuration
 public class EndPointConfigCalc {
     @Bean
-    public SimpleXsdSchema amazonXsdSchema(){
+    public SimpleXsdSchema amazonXsdSchema() {
         return new SimpleXsdSchema(new ClassPathResource("schemas/CalcServices.xsd"));
     }
+
     @Bean
-    public XsdSchemaRepository schemaRepository(){
+    public XsdSchemaRepository schemaRepository() {
         XsdSchemaRepository xsdSchemaRepository = new XsdSchemaRepository();
         xsdSchemaRepository.getSchemas().add(amazonXsdSchema());
         return xsdSchemaRepository;
     }
-//    @Bean
+
+    //    @Bean
 //    public NamespaceContextBuilder namespaceContextBuilder(){
 //        NamespaceContextBuilder namespaceContextBuilder = new NamespaceContextBuilder();
 //        namespaceContextBuilder.setNamespaceMappings(Collections.singletonMap("tem","http://tempuri.org/"));
 //        return namespaceContextBuilder;
 //    }
     @Bean
-    public SoapMessageFactory messageFactory(){return new SaajSoapMessageFactory();}
+    public SoapMessageFactory messageFactory() {
+        return new SaajSoapMessageFactory();
+    }
 
     @Bean(name = "calcClient")
-    public WebServiceClient calcClient(){
+    public WebServiceClient calcClient() {
         return CitrusEndpoints
                 .soap()
-                    .client()
-                    .defaultUri("http://www.dneonline.com/calculator.asmx")
+                .client()
+                .defaultUri("http://www.dneonline.com/calculator.asmx")
                 .build();
     }
 }

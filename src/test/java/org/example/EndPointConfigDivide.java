@@ -1,7 +1,7 @@
 package org.example;
 
-import com.consol.citrus.db.driver.JdbcDriver;
 import com.consol.citrus.dsl.endpoint.CitrusEndpoints;
+import com.consol.citrus.jdbc.server.JdbcServer;
 import com.consol.citrus.ws.client.WebServiceClient;
 import com.consol.citrus.xml.XsdSchemaRepository;
 import com.consol.citrus.xml.namespace.NamespaceContextBuilder;
@@ -19,11 +19,12 @@ import java.util.Collections;
 @Configuration
 public class EndPointConfigDivide {
     @Bean
-    public SimpleXsdSchema DivideXsdSchema(){
+    public SimpleXsdSchema DivideXsdSchema() {
         return new SimpleXsdSchema(new ClassPathResource("schemas/DivideInteger.xsd"));
     }
+
     @Bean
-    public XsdSchemaRepository schemaRepository(){
+    public XsdSchemaRepository schemaRepository() {
         XsdSchemaRepository xsdSchemaRepository = new XsdSchemaRepository();
         xsdSchemaRepository.getSchemas().add(DivideXsdSchema());
         return xsdSchemaRepository;
@@ -35,28 +36,44 @@ public class EndPointConfigDivide {
         namespaceContextBuilder.setNamespaceMappings(Collections.singletonMap("web", "http://www.dataaccess.com/webservicesserver"));
         return namespaceContextBuilder;
     }
+
     @Bean
-    public SoapMessageFactory messageFactory(){return new SaajSoapMessageFactory();}
+    public SoapMessageFactory messageFactory() {
+        return new SaajSoapMessageFactory();
+    }
 
     @Bean(name = "divideClient")
-    public WebServiceClient divideClient(){
+    public WebServiceClient divideClient() {
         return CitrusEndpoints
                 .soap()
                 .client()
                 .defaultUri("https://www.crcind.com:443/csp/samples/SOAP.Demo.cls")
                 .build();
     }
-/*
-      @Bean
-      public SingleConnectionDataSource dataSource() {
-          SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
-          dataSource.setDriverClassName(JdbcDriver.class.getName());
-          dataSource.setUrl("jdbc:citrus:http://localhost:3306/");
-          dataSource.setUsername("root");
-          dataSource.setPassword("Vijay@88842");
-          return dataSource;
-      }
-*/
+
+    /*
+          @Bean
+          public SingleConnectionDataSource dataSource() {
+              SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
+              dataSource.setDriverClassName(JdbcDriver.class.getName());
+              dataSource.setUrl("jdbc:citrus:http://localhost:3306/");
+              dataSource.setUsername("root");
+              dataSource.setPassword("Vijay@88842");
+              return dataSource;
+          }
+    */
+    @Bean
+    public JdbcServer jdbcServer() {
+        return CitrusEndpoints
+                .jdbc()
+                .server()
+                .host("localhost")
+                .databaseName("bookstore")
+                .port(3306)
+                .timeout(10000L)
+                .autoStart(true)
+                .build();
+    }
 
     @Bean(destroyMethod = "close")
     public BasicDataSource todoListDataSource() {
