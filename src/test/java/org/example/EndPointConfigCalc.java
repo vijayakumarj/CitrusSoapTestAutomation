@@ -27,12 +27,6 @@ public class EndPointConfigCalc {
         return xsdSchemaRepository;
     }
 
-    //    @Bean
-//    public NamespaceContextBuilder namespaceContextBuilder(){
-//        NamespaceContextBuilder namespaceContextBuilder = new NamespaceContextBuilder();
-//        namespaceContextBuilder.setNamespaceMappings(Collections.singletonMap("tem","http://tempuri.org/"));
-//        return namespaceContextBuilder;
-//    }
     @Bean
     public SoapMessageFactory messageFactory() {
         return new SaajSoapMessageFactory();

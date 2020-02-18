@@ -51,29 +51,6 @@ public class EndPointConfigDivide {
                 .build();
     }
 
-    /*
-          @Bean
-          public SingleConnectionDataSource dataSource() {
-              SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
-              dataSource.setDriverClassName(JdbcDriver.class.getName());
-              dataSource.setUrl("jdbc:citrus:http://localhost:3306/");
-              dataSource.setUsername("root");
-              dataSource.setPassword("Vijay@88842");
-              return dataSource;
-          }
-    */
-    @Bean
-    public JdbcServer jdbcServer() {
-        return CitrusEndpoints
-                .jdbc()
-                .server()
-                .host("localhost")
-                .databaseName("bookstore")
-                .port(3306)
-                .timeout(10000L)
-                .autoStart(true)
-                .build();
-    }
 
     @Bean(destroyMethod = "close")
     public BasicDataSource todoListDataSource() {
@@ -81,7 +58,7 @@ public class EndPointConfigDivide {
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
         dataSource.setUrl("jdbc:mariadb://localhost/bookstore");
         dataSource.setUsername("root");
-        dataSource.setPassword("password");
+        dataSource.setPassword("PASSWORD");
         dataSource.setInitialSize(1);
         dataSource.setMaxActive(5);
         dataSource.setMaxIdle(2);

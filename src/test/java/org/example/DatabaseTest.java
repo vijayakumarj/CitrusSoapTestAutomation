@@ -1,6 +1,7 @@
 package org.example;
 
 import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.jdbc.server.JdbcServer;
 import com.consol.citrus.dsl.testng.TestNGCitrusTestRunner;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,9 @@ public class DatabaseTest extends TestNGCitrusTestRunner {
                 .validate("id", "${updatedTodoId}")
                 .validate("title", "${todoName}")
                 .validate("description", "${todoDescription}")
+                .extract("id","extractedId")
         );
 
+        echo("${extractedId}");
     }
 }
